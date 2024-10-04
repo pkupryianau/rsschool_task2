@@ -1,41 +1,26 @@
-name: "Task2"
+name: Terraform AWS
 on:
   push:
-    branches:
-      - main
-  pull_request:
-permissions:
-  id-token: write
-  contents: read
-  pull-requests: write 
-  stages:
-  - validate
-  - plan
-  - apply
-  image:
-    name: hashicorp/terraform:light
-  entrypoint:
-    #- '/usr/bin/env'
-    #- 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'before_script:
-  - export AWS_ACCESS_KEY=${AWS_ACCESS_KEY_ID}
-  - export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-  - rm -rf .terraform
-  - terraform --version
-  - terraform initvalidate:
-  stage: validate
-  script:
-    - terraform validateplan:
-  stage: plan
-  script:
-    - terraform plan -out "planfile"
-  dependencies:
-    - validate
-  artifacts:
-    paths:
-      - planfileapply:
-  stage: apply
-  script:
-    - terraform apply -input=false "planfile"
-  dependencies:
-    - plan
-  when: manual
+    branches: main
+env:
+   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+jobs:
+  tf:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: hashicorp/setup-terraform@v2
+    - name: Terraform fmt
+      id: fmt
+      run: terraform fmt -check
+    - name: Terraform Init
+      id: init
+      run: terraform init
+    - name: Terraform Plan
+      id: plan
+      run: terraform plan
+    - name: Terraform Apply
+      id: apply
+      run: terraform apply -auto-approve
