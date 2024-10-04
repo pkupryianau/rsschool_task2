@@ -15,7 +15,7 @@ permissions:
   image:
     name: hashicorp/terraform:light
   entrypoint:
-    - '/usr/bin/env'
+    #- '/usr/bin/env'
     - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'before_script:
   - export AWS_ACCESS_KEY=${AWS_ACCESS_KEY_ID}
   - export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
