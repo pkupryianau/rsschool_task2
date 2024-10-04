@@ -1,8 +1,19 @@
-stages:
+name: "Task2"
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write 
+  stages:
   - validate
   - plan
-  - applyimage:
-  name: hashicorp/terraform:light
+  - apply
+  image:
+    name: hashicorp/terraform:light
   entrypoint:
     - '/usr/bin/env'
     - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'before_script:
