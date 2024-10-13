@@ -26,10 +26,5 @@ jobs:
         run: terraform plan
       - name: Terraform Apply
         id: apply
-        run: terraform apply
-      - name: Show Destroy plan
-        run: terraform plan -destroy
-        continue-on-error: true
-      - name: Terraform destroy
-        id: destroy
-        run: terraform destroy
+        run: terraform apply -auto-approve
+
