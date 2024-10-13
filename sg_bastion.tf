@@ -1,4 +1,3 @@
-
 ##############
 # Secutiry Group to access Bastion host in  different AZ
 ##############

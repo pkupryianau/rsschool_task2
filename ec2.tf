@@ -16,23 +16,25 @@ resource "aws_instance" "bastion" {
 ## EC2 in private VPC 1-2
 #########################################################
 resource "aws_instance" "ec2_1" {
-  ami                    = "ami-0084a47cc718c111a"
-  instance_type          = "t2.micro"
-  availability_zone      = var.availability_zones[0]
-  subnet_id              = aws_subnet.private-subnet-1.id
-  vpc_security_group_ids = [aws_security_group.security-group-1.id]
-  key_name               = "tbl"
+  ami                         = "ami-0084a47cc718c111a"
+  instance_type               = "t2.micro"
+  availability_zone           = var.availability_zones[0]
+  subnet_id                   = aws_subnet.private-subnet-1.id
+  vpc_security_group_ids      = [aws_security_group.security-group-1.id]
+  associate_public_ip_address = true
+  key_name                    = "tbl"
   tags = {
     Name = "ec2 in private_1 VPC"
   }
 }
 resource "aws_instance" "ec2_2" {
-  ami                    = "ami-0084a47cc718c111a"
-  instance_type          = "t2.micro"
-  availability_zone      = var.availability_zones[1]
-  subnet_id              = aws_subnet.private-subnet-2.id
-  vpc_security_group_ids = [aws_security_group.security-group-2.id]
-  key_name               = "tbl"
+  ami                         = "ami-0084a47cc718c111a"
+  instance_type               = "t2.micro"
+  availability_zone           = var.availability_zones[1]
+  subnet_id                   = aws_subnet.private-subnet-2.id
+  vpc_security_group_ids      = [aws_security_group.security-group-2.id]
+  associate_public_ip_address = true
+  key_name                    = "tbl"
   tags = {
     Name = "ec2 in private_2 VPC"
   }

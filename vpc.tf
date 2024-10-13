@@ -42,6 +42,3 @@ resource "aws_subnet" "private-subnet-2" {
   vpc_id            = aws_vpc.aws-rs-lab-vpc.id
   availability_zone = var.availability_zones[1]
 }
-
-
-
